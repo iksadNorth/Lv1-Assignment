@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.Timestamp;
@@ -37,21 +38,20 @@ public class ArticleRepositoryImpl implements ArticleRepository {
                 },
                 keyHolder);
 
-        Long id = keyHolder.getKeyAs(Long.class);
-        entity.setId(id);
+        Long id = keyHolder.getKeyAs(BigInteger.class).longValue();
 
-        return entity;
+        return findById(id).orElse(null);
     }
 
     @Override
     public List<Article> findAll() {
-        String sql = "SELECT * FROM blog ORDER BY created_at DESC";
+        String sql = "SELECT * FROM article ORDER BY created_at DESC";
         return jdbcTemplate.query(sql, Article::fromResultSet);
     }
 
     @Override
     public Optional<Article> findById(Long id) {
-        String sql = "SELECT * FROM blog WHERE id = ?";
+        String sql = "SELECT * FROM article WHERE id = ?";
 
         Article entity = jdbcTemplate.query(sql,
                 rs -> rs.next() ?
@@ -63,7 +63,7 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 
     @Override
     public Optional<Article> updateById(Long id, Article entity) {
-        String sql = "UPDATE blog SET title = ?, author = ?, content = ? WHERE id = ?";
+        String sql = "UPDATE article SET title = ?, author = ?, content = ? WHERE id = ?";
         jdbcTemplate.update(sql,
                 entity.getTitle(), entity.getAuthor(), entity.getContent(),
                 id);
@@ -72,7 +72,7 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 
     @Override
     public void deleteById(Long id) {
-        String sql = "DELETE FROM blog WHERE id = ?";
+        String sql = "DELETE FROM article WHERE id = ?";
         jdbcTemplate.update(sql, id);
     }
 }
