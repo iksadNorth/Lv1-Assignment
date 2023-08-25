@@ -19,7 +19,7 @@ public class ArticleController {
     }
 
     @GetMapping
-    public List<ArticleReadRes> readAll(@RequestBody ArticleCreateReq request) {
+    public List<ArticleReadRes> readAll() {
         return null;
     }
 
