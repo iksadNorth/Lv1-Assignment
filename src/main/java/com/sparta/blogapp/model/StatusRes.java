@@ -1,5 +1,6 @@
 package com.sparta.blogapp.model;
 
+import com.sparta.blogapp.exception.BlogException;
 import com.sparta.blogapp.type.ResponseType;
 import lombok.Builder;
 
@@ -12,7 +13,7 @@ public record StatusRes(
         return fromType(ResponseType.DELETE_SUCCESSFULLY);
     }
 
-    public static StatusRes fromType(ResponseType type) {
+    public static StatusRes fromType(BlogException type) {
         return StatusRes.builder()
                 .msg(type.getMsg())
                 .code(type.getCode())

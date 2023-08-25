@@ -21,6 +21,7 @@ public enum ResponseType implements BlogException {
         return GeneralBlogException.builder()
                 .msg(this.getMsg())
                 .code(this.getCode())
+                .status(this.getStatus())
                 .build();
     }
 }
