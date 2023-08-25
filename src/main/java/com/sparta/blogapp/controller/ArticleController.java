@@ -1,8 +1,7 @@
 package com.sparta.blogapp.controller;
 
-import com.sparta.blogapp.model.ArticleCreateReq;
 import com.sparta.blogapp.model.ArticleReadRes;
-import com.sparta.blogapp.model.ArticleUpdateReq;
+import com.sparta.blogapp.model.ArticleReq;
 import com.sparta.blogapp.model.StatusRes;
 import com.sparta.blogapp.service.ArticleService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,7 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @PostMapping
-    public ArticleReadRes create(@RequestBody ArticleCreateReq request) {
+    public ArticleReadRes create(@RequestBody ArticleReq request) {
         return ArticleReadRes.fromEntity(articleService.create(request));
     }
 
@@ -33,7 +32,7 @@ public class ArticleController {
     }
 
     @PutMapping("/{id}")
-    public ArticleReadRes updateById(@PathVariable Long id, @RequestBody ArticleUpdateReq request) {
+    public ArticleReadRes updateById(@PathVariable Long id, @RequestBody ArticleReq request) {
         return ArticleReadRes.fromEntity(articleService.updateById(id, request));
     }
 
