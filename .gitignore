@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# 보안상 제외하는 곳.
+src/main/resources/application.properties
