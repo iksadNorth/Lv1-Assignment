@@ -19,7 +19,7 @@ public class ArticleServiceImpl implements ArticleService {
         request.verify();
 
         Article entity = request.toEntity();
-        return articleRepository.create(entity);
+        return articleRepository.save(entity);
     }
 
     @Override
@@ -39,8 +39,8 @@ public class ArticleServiceImpl implements ArticleService {
         Article entity = readById(id);
         verifyPassword(entity.getPassword(), request.password());
 
-        return articleRepository.updateById(id, request.toEntity())
-                .orElseThrow(ResponseType.ARTICLE_NOT_FOUNDED::toException);
+        Article entityRenewed = request.overwriteTo(entity);
+        return articleRepository.save(entityRenewed);
     }
 
     @Override

@@ -5,6 +5,8 @@ import com.sparta.blogapp.exception.GeneralBlogException;
 import com.sparta.blogapp.type.ResponseType;
 import lombok.Builder;
 
+import java.time.LocalDateTime;
+
 @Builder(toBuilder = true)
 public record ArticleReq(
     String title,
@@ -18,7 +20,16 @@ public record ArticleReq(
         entity.setAuthor(this.author);
         entity.setContent(this.content);
         entity.setPassword(this.password);
+        entity.setCreatedAt(LocalDateTime.now());
         return entity;
+    }
+
+    public Article overwriteTo(Article entity) {
+        Article clone = Article.from(entity);
+        clone.setTitle(this.title);
+        clone.setAuthor(this.author);
+        clone.setContent(this.content);
+        return clone;
     }
 
     public void verify() {
