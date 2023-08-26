@@ -5,8 +5,6 @@ import com.sparta.blogapp.exception.GeneralBlogException;
 import com.sparta.blogapp.type.ResponseType;
 import lombok.Builder;
 
-import java.time.LocalDateTime;
-
 @Builder(toBuilder = true)
 public record ArticleReq(
     String title,
@@ -20,7 +18,6 @@ public record ArticleReq(
         entity.setAuthor(this.author);
         entity.setContent(this.content);
         entity.setPassword(this.password);
-        entity.setCreatedAt(LocalDateTime.now());
         return entity;
     }
 
